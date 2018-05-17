@@ -1,27 +1,27 @@
-Helper = require('hubot-test-helper')
-chai = require 'chai'
+Calculator = require '../calculator'
 
-expect = chai.expect
+exports.CalculatorTest =
 
-helper = new Helper('../src/openshift-slack-bot.coffee')
+    'test can add two positive numbers': (test) ->
+        calculator = new Calculator
+        result = calculator.add 2, 3
+        test.equal(result, 5)
+        test.done()
 
-describe 'openshift-slack-bot', ->
-  beforeEach ->
-    @room = helper.createRoom()
+    'test can handle negative number addition': (test) ->
+        calculator = new Calculator
+        result = calculator.add -10, 5
+        test.equal(result,  -5)
+        test.done()
 
-  afterEach ->
-    @room.destroy()
+    'test can subtract two positive numbers': (test) ->
+        calculator = new Calculator
+        result = calculator.subtract 10, 6
+        test.equal(result, 4)
+        test.done()
 
-  it 'responds to hello', ->
-    @room.user.say('alice', '@hubot hello').then =>
-      expect(@room.messages).to.eql [
-        ['alice', '@hubot hello']
-        ['hubot', '@alice hello!']
-      ]
-
-  it 'hears orly', ->
-    @room.user.say('bob', 'just wanted to say orly').then =>
-      expect(@room.messages).to.eql [
-        ['bob', 'just wanted to say orly']
-        ['hubot', 'yarly']
-      ]
+    'test can handle negative number subtraction': (test) ->
+        calculator = new Calculator
+        result = calculator.subtract 4, -6
+        test.equal(result, 10)
+        test.done()
