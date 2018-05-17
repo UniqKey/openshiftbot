@@ -4,7 +4,7 @@
   "description": "A hubot slack buddy for openshift online.",
   "main": "src/sample.coffee",
   "scripts": {
-    "test": "mocha -r coffeescript/register test/spec.coffee",
+    "test": "mocha -r coffee-script/register test/spec.coffee",
     "start": "./bin/hubot --adapter slack"
   },
   "repository": {
