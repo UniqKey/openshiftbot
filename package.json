@@ -39,7 +39,7 @@
     "hubot-slack": "^4.4.0"
   },
   "devDependencies": {
-    "coffeescript": ">=1.2.0",
+    "coffee-script": "^1.12.6",
     "mocha": "^5.1.1"
   }
 }
