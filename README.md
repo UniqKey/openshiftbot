@@ -13,13 +13,14 @@ Having the bot perform arbitrary writes seems a bit high risk. There is a hubot 
 - [ ] cron check that `oc version` has matching client and server versions
 - [ ] check local build tags against upstream latest tags
 - [ ] poll `oc get events`, deduplicate and tell the room
-- [ ] cron check that `oc version` has matching client and server versions
 
 ### Running openshiftbot Locally
 
-You can start openshiftbot locally by running:
+You need a slack app oAuth token then you can start openshiftbot locally by running:
 
     % HUBOT_SLACK_TOKEN=xxx KUBECONFIG=~/.kube/config ./bin/hubot --adapter slack
+
+See below for how to connect to other chat solutions such as Campfile or IRC. 
 
 You'll see some start up output and a prompt:
 
@@ -29,7 +30,6 @@ You'll see some start up output and a prompt:
 Then you can interact with openshiftbot by typing `openshiftbot help`.
 
     openshiftbot> openshiftbot help
-    openshiftbot animate me <query> - The same thing as `image me`, except adds [snip]
     openshiftbot help - Displays all of the help commands that openshiftbot knows about.
     ...
 
