@@ -1,4 +1,4 @@
-# Openshiftbot your friendly openshift hubot
+# Openshiftboy the friendly openshift hubot
 
 Openshiftbot is a hubot focusing on monitoring activity and container patch levels within your openshift projects. It enables chatops culture where openshift events are displayed in chat channels where you work (e.g. Slack). Rather than slacking a question ”is the feature deployed” look at what openshiftbot has said else ask it a question. 
 
@@ -13,6 +13,19 @@ Having the bot perform arbitrary writes seems a bit high risk. There is a hubot 
 - [ ] cron check that `oc version` has matching client and server versions
 - [ ] check local build tags against upstream latest tags
 - [ ] poll `oc get events`, deduplicate and tell the room
+
+### Setup On OpenShift Online
+
+This hubot runs the oc command. That reads the kubeconfig file created by `oc login`. The openshift template mounts a secret called `kubconfig` into the deployment. To create that secret you need to perform an `oc login` and load the generated kubconfig file into an openshift secret using the provide secret. 
+
+You probably want the bot to have read-only access to your projects. Jenkins hubots can do turnover approvals to release software and that's probably a safer route that having people run custom oc write commands from slack:
+
+ 1. Create a new openshift.com free account
+ 1. Add it as a collaborator to your main account and grant it only "view" access to your project 
+ 1. Backup your `~/.kube/config` and generate a new one by logging into openshift as the new read-only user. 
+ 1. Copy the newly generated kubconfig as `kubconfig` in the local director. That file name is in the .gitignore so that you won't accidently commit it. (We use `git secret` to encrypt it). 
+ 1. To be continued...
+ 
 
 ### Running openshiftbot Locally
 
