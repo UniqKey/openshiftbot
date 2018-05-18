@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "Running default /usr/libexec/s2i/assemble"
+
+/usr/libexec/s2i/assemble
+rc=$?
+
+if [ $rc -eq 0 ]; then
+    echo "After successful assembling copying files"
+    echo 'wget oc'
+    wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/linux/oc.tar.gz | tar zx; 
+else
+    echo "After failed assembling"
+fi
+
+exit $rc

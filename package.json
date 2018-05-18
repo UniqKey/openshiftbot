@@ -6,7 +6,7 @@
   "scripts": {
     "build:macos": "echo 'getting oc'; wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/macosx/oc.tar.gz | tar zx",
     "test": "mocha -r coffee-script/register test/spec.coffee",
-    "start": "echo 'getting oc'; wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/linux/oc.tar.gz | tar zx; ./bin/hubot --adapter slack"
+    "start": "./bin/hubot --adapter slack"
   },
   "repository": {
     "type": "git",
