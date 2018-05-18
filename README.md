@@ -1,10 +1,10 @@
 # Openshiftbot your friendly openshift hubot
 
-Openshiftbot is a hubot focusing on monitoring activity and container patch levels within your openshift projects. It enables chatops culture where openshift events are displayed chat channels where you work (e.g. Slack). Rather than slacking a question ”is the feature deployed” look at what openshiftbot has said. 
+Openshiftbot is a hubot focusing on monitoring activity and container patch levels within your openshift projects. It enables chatops culture where openshift events are displayed in chat channels where you work (e.g. Slack). Rather than slacking a question ”is the feature deployed” look at what openshiftbot has said else ask it a question. 
 
-Currently the focus is getting something immediately useful for our deployments. Refactoring for reuse by others is going to be a lower priority than adding features. You can always fork and customised to your purposes. We would consider refactoring it to be a plug-in if there is interest. 
+Currently the focus is getting something immediately useful for our deployments. You can always fork and customised to your purposes. We would consider refactoring it to be a plug-in if there is interest. 
 
-Having the bot perform arbitrary writes seems a bit high risk. There is a hubot Jenkins Steps plugin that would seem a good ideal for that. Instead this bot is intended to run with read-only access and tell you the appropriate commands to run.
+Having the bot perform arbitrary writes seems a bit high risk. There is a hubot Jenkins Steps plugin that would seem a good idea for that doing Jenkins based promotions. This bot is intended to run with read-only access and tell you the appropriate commands to run if it thinks you should be patching your container images to match the lastest up stream LTS releases. 
 
 ### Features
 
@@ -33,101 +33,13 @@ Then you can interact with openshiftbot by typing `openshiftbot help`.
     openshiftbot help - Displays all of the help commands that openshiftbot knows about.
     ...
 
-### Configuration
-
-A few scripts (including some installed by default) require environment
-variables to be set as a simple form of configuration.
-
-Each script should have a commented header which contains a "Configuration"
-section that explains which values it requires to be placed in which variable.
-When you have lots of scripts installed this process can be quite labour
-intensive. The following shell command can be used as a stop gap until an
-easier way to do this has been implemented.
-
-    grep -o 'hubot-[a-z0-9_-]\+' external-scripts.json | \
-      xargs -n1 -I {} sh -c 'sed -n "/^# Configuration/,/^#$/ s/^/{} /p" \
-          $(find node_modules/{}/ -name "*.coffee")' | \
-        awk -F '#' '{ printf "%-25s %s\n", $1, $2 }'
-
-How to set environment variables will be specific to your operating system.
-Rather than recreate the various methods and best practices in achieving this,
-it's suggested that you search for a dedicated guide focused on your OS.
-
-### Scripting
-
-An example script is included at `scripts/example.coffee`, so check it out to
-get started, along with the [Scripting Guide][scripting-docs].
-
-For many common tasks, there's a good chance someone has already one to do just
-the thing.
-
-[scripting-docs]: https://github.com/github/hubot/blob/master/docs/scripting.md
-
-### external-scripts
-
-There will inevitably be functionality that everyone will want. Instead of
-writing it yourself, you can use existing plugins.
-
-Hubot is able to load plugins from third-party `npm` packages. This is the
-recommended way to add functionality to your hubot. You can get a list of
-available hubot plugins on [npmjs.com][npmjs] or by using `npm search`:
-
-    % npm search hubot-scripts panda
-    NAME             DESCRIPTION                        AUTHOR DATE       VERSION KEYWORDS
-    hubot-pandapanda a hubot script for panda responses =missu 2014-11-30 0.9.2   hubot hubot-scripts panda
-    ...
-
-
-To use a package, check the package's documentation, but in general it is:
-
-1. Use `npm install --save` to add the package to `package.json` and install it
-2. Add the package name to `external-scripts.json` as a double quoted string
-
-You can review `external-scripts.json` to see what is included by default.
-
-##### Advanced Usage
-
-It is also possible to define `external-scripts.json` as an object to
-explicitly specify which scripts from a package should be included. The example
-below, for example, will only activate two of the six available scripts inside
-the `hubot-fun` plugin, but all four of those in `hubot-auto-deploy`.
-
-```json
-{
-  "hubot-fun": [
-    "crazy",
-    "thanks"
-  ],
-  "hubot-auto-deploy": "*"
-}
-```
-
-**Be aware that not all plugins support this usage and will typically fallback
-to including all scripts.**
-
-[npmjs]: https://www.npmjs.com
-
-### hubot-scripts
-
-Before hubot plugin packages were adopted, most plugins were held in the
-[hubot-scripts][hubot-scripts] package. Some of these plugins have yet to be
-migrated to their own packages. They can still be used but the setup is a bit
-different.
-
-To enable scripts from the hubot-scripts package, add the script name with
-extension as a double quoted string to the `hubot-scripts.json` file in this
-repo.
-
-[hubot-scripts]: https://github.com/github/hubot-scripts
-
 ##  Persistence
 
 If you are going to use the `hubot-redis-brain` package (strongly suggested),
-you will need to add the Redis to Go addon on Heroku which requires a verified
-account or you can create an account at [Redis to Go][redistogo] and manually
-set the `REDISTOGO_URL` variable.
+you will need to add the Redis to OpenShift and manually
+set the `REDISTOGO_URL` variable to be the Redis service *.svc internal DNS name..
 
-    % heroku config:add REDISTOGO_URL="..."
+    % oc env dc openshiftbot REDISTOGO_URL="..."
 
 If you don't need any persistence feel free to remove the `hubot-redis-brain`
 from `external-scripts.json` and you don't need to worry about redis at all.
@@ -137,11 +49,11 @@ from `external-scripts.json` and you don't need to worry about redis at all.
 ## Adapters
 
 Adapters are the interface to the service you want your hubot to run on, such
-as Campfire or IRC. There are a number of third party adapters that the
+as Slack, Campfire or IRC. There are a number of third party adapters that the
 community have contributed. Check [Hubot Adapters][hubot-adapters] for the
 available ones.
 
-If you would like to run a non-Campfire or shell adapter you will need to add
+If you would like to run a non-Slack or shell adapter you will need to add
 the adapter package as a dependency to the `package.json` file in the
 `dependencies` section.
 
