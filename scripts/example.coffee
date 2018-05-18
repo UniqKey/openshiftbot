@@ -3,7 +3,7 @@ module.exports = (robot) ->
 
      robot.respond /oc status/i, (msg) ->
        @exec = require('child_process').exec
-       command = "oc status"
+       command = "./oc status"
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
