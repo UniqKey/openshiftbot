@@ -20,14 +20,11 @@ This hubot runs the oc command. That reads the kubeconfig file created by `oc lo
 
 You probably want the bot to have read-only access to your projects. Jenkins hubots can do turnover approvals to release software and that's probably a safer route that having people run custom oc write commands from slack:
 
- 1. Create a new openshift.com free account
- 1. Add it as a collaborator to your main account and grant it only "view" access to your project 
- 1. Backup your `~/.kube/config` and generate a new one by logging into openshift as the new read-only user. 
- 1. Copy the newly generated kubconfig as `kubconfig` in the local director. That file name is in the .gitignore so that you won't accidently commit it. (We use `git secret` to encrypt it). 
+ 1. Create a new openshift.com free account and add it as a collaborator to your main account and grant it only "view" access to your project 
+ 1. Backup your `~/.kube/config` and generate a new one by logging into openshift as the new read-only collaborator. 
+ 1. Copy the newly generated `~/.kube/config` as `kubconfig` in the local director. That file name is in the .gitignore so that you won't accidently commit it. (We use `git secret` to encrypt it). Restore you original `~/.kube/config` so that you can create objects.
  1. Create the secret `NAME=kubeconfig ./create-file-secret.sh kubeconfig`
  1. Create hubot `NAME=hubot ./create-openshift.sh`
- 
- 
  
 
 ### Running openshiftbot Locally
