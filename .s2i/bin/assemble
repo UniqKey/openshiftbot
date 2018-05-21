@@ -8,6 +8,8 @@ if [ $rc -eq 0 ]; then
     echo "After successful assembling copying files"
     echo 'wget oc'
     wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/linux/oc.tar.gz | tar zx; 
+    echo 'get jq'
+    wget -q -O jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o jq; chmod +x jq
 else
     echo "After failed assembling"
 fi
