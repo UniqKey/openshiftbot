@@ -65,6 +65,22 @@
       "spec": {
         "tags": [
           {
+            "annotations": {
+              "description": "Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/8/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Node.js available on OpenShift, including major versions updates.",
+              "iconClass": "icon-nodejs",
+              "openshift.io/display-name": "Node.js (Latest)",
+              "openshift.io/provider-display-name": "Red Hat, Inc.",
+              "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+              "supports": "nodejs",
+              "tags": "builder,nodejs"
+            },
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "1-13"
+            },
+            "name": "latest"
+          },
+          {
             "name": "1-13",
             "annotations": {
               "openshift.io/display-name": "nodejs-8-rhel7 1-13",
@@ -114,7 +130,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "nodejs-8-rhel7:${NODEJS_VERSION}"
+              "name": "nodejs-8-rhel7:latest"
             },
             "env":  [
               {
@@ -255,13 +271,6 @@
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "required": true,
       "value": "openshift"
-    },
-    {
-      "name": "NODEJS_VERSION",
-      "displayName": "Tag of NodeJS TLS Image",
-      "description": "Tag of NodeJS TLS image to be used (nodejs-8-rhel7:1-13).",
-      "value": "1-13",
-      "required": true
     },
     {
       "name": "MEMORY_LIMIT",
