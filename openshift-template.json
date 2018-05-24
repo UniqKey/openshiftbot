@@ -57,9 +57,9 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nodejs-8-rhel7",
+        "name": "nodejs",
         "annotations": {
-          "openshift.io/display-name": "nodejs-8-rhel7"
+          "openshift.io/display-name": "nodejs"
         }
       },
       "spec": {
@@ -130,7 +130,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "nodejs-8-rhel7:latest"
+              "name": "nodejs:latest"
             },
             "env":  [
               {
