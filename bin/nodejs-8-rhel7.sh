@@ -18,8 +18,8 @@ awk 'NR==FNR{a[$1];next} {delete a[$1] } END{for (key in a) print key }' /tmp/up
 # Step4: Whats the command to replace them? 
 cat /tmp/missing.txt | \
 while read TAG; do \
-    echo "./oc -n uniqkey-api-staging import-image nodejs-8-rhel7:$TAG --from='registry.access.redhat.com/rhscl/nodejs-8-rhel7:$TAG' --confirm"
-    echo "./oc tag uniqkey-api-staging/nodejs-8-rhel7:$TAG uniqkey-api-staging/nodejs-8-rhel7:latest"
+    echo "oc -n uniqkey-api-staging import-image nodejs-8-rhel7:$TAG --from='registry.access.redhat.com/rhscl/nodejs-8-rhel7:$TAG' --confirm"
+    echo "oc tag uniqkey-api-staging/nodejs-8-rhel7:$TAG uniqkey-api-staging/nodejs-8-rhel7:latest"
 done > /tmp/import.txt
 
 if [ -s /tmp/missing.txt ]
