@@ -23,6 +23,7 @@ You probably want the bot to have read-only access to your projects. Jenkins hub
  1. Create a new openshift.com free account and add it as a collaborator to your main account and grant it only "view" access to your project 
  1. Backup your `~/.kube/config` and generate a new one by logging into openshift as the new read-only collaborator. 
  1. Copy the newly generated `~/.kube/config` as `kubconfig` in the local director. That file name is in the .gitignore so that you won't accidently commit it. (We use `git secret` to encrypt it). Restore you original `~/.kube/config` so that you can create objects.
+ 1. Import the latest Node.js 8 LTS builder image `oc import-image nodejs-8-rhel7:latest --from="registry.access.redhat.com/rhscl/nodejs-8-rhel7:latest" --confirm`
  1. Create the secret `NAME=kubeconfig ./create-file-secret.sh kubeconfig`
  1. Create hubot `NAME=hubot ./create-openshift.sh`
  
