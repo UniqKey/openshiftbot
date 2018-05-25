@@ -28,5 +28,5 @@ then
     cat /tmp/import.txt
 else
     UPSTREAM=$(cat /tmp/upstream.txt | paste -sd "," -)
-    echo "The image stream nodejs-8-rhel7 is up to date with latest upstream tags "+$UPSTREAM
+    echo "The image stream nodejs-8-rhel7 is up to date with latest upstream tags $UPSTREAM"
 fi
