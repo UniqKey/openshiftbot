@@ -27,6 +27,16 @@ module.exports = (robot) ->
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
-            msg.send "@#{msg.message.user.name} " + "Ops! not able to fetch OpenShift events, Please check help `!oc help` " +"```" + stderr + "```"
+            msg.send "@#{msg.message.user.name} " + "Ops! I am not able to fetch OpenShift events! " +"```" + stderr + "```"
          else
             msg.send "@#{msg.message.user.name} " + "Here you go! The oc get events..." +"```" + stdout + "```"
+
+     robot.respond /do we have the latest nodejs-8-rhel7 tags\?/i, (msg) ->
+       @exec = require('child_process').exec
+       command = "./bin/nodejs-8-rhel7.sh"
+
+       @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
+         if error
+            msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
+         else
+            msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
