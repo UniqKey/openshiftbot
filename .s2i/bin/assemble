@@ -5,7 +5,7 @@ echo "Running default /usr/libexec/s2i/assemble"
 rc=$?
 
 if [ $rc -eq 0 ]; then
-    echo "After successful assembling copying files"
+    echo "After successful assembling..."
     echo 'wget oc'
     wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/linux/oc.tar.gz | tar zx; 
     echo 'wget jq'
