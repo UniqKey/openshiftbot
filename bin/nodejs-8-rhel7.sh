@@ -24,7 +24,7 @@ done > /tmp/import.txt
 
 if [ -s /tmp/missing.txt ]
 then
-    echo "The image stream nodejs-8-rhel7 is missing upstream latest tag. Run the following to import it:"
+    echo "The image stream nodejs-8-rhel7 is missing one or more tags marked as 'latest' upstream. Run the following to import them:"
     cat /tmp/import.txt
 else
     UPSTREAM=$(cat /tmp/upstream.txt | paste -sd "," -)
