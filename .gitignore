@@ -7,3 +7,4 @@ uniqkey3.pub
 .env
 kubeconfig
 oc
+jq
