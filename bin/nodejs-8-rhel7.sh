@@ -18,13 +18,15 @@ awk 'NR==FNR{a[$1];next} {delete a[$1] } END{for (key in a) print key }' /tmp/up
 # Step4: Whats the command to replace them? 
 cat /tmp/missing.txt | \
 while read TAG; do \
+    echo "# Run the following to import the missing image $TAG:"
     echo "oc -n uniqkey-api-staging import-image nodejs-8-rhel7:$TAG --from='registry.access.redhat.com/rhscl/nodejs-8-rhel7:$TAG' --confirm"
+    echo "# Run the following set the imported image as the latest to trigger a build:"
     echo "oc tag uniqkey-api-staging/nodejs-8-rhel7:$TAG uniqkey-api-staging/nodejs-8-rhel7:latest"
 done > /tmp/import.txt
 
 if [ -s /tmp/missing.txt ]
 then
-    echo "The image stream nodejs-8-rhel7 is missing one or more tags marked as 'latest' upstream. Run the following to import them:"
+    echo "# The image stream nodejs-8-rhel7 is missing one or more images marked as 'latest' upstream."
     cat /tmp/import.txt
 else
     UPSTREAM=$(cat /tmp/upstream.txt | paste -sd "," -)
