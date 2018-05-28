@@ -41,7 +41,7 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
 
-      robot.respond /promote (.*))/i, (res) ->
+      robot.respond /promote (.*)/i, (res) ->
         image = res.match[1]
         if image?
           @exec = require('child_process').exec
