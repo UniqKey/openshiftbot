@@ -1,14 +1,12 @@
 # Openshiftbot the friendly openshift hubot
 
-Openshiftbot is a hubot focusing on monitoring activity and container patch levels within your openshift projects. It enables chatops culture where openshift events are displayed in chat channels where you work (e.g. Slack). Rather than slacking a question ”is the feature deployed” look at what openshiftbot has said else ask it a question. 
+Openshiftbot is a hubot focusing on chatops culture where commands such as `promote webapp` are run from within the chat channels where you work (e.g. Slack). Rather than slacking a question ”is the feature deployed” look at what openshiftbot has said else ask it a question. 
 
 Currently the focus is getting something immediately useful for our deployments. You can always fork and customised to your purposes. We would consider refactoring it to be a plug-in if there is interest. 
 
-Having the bot perform arbitrary writes seems a bit high risk. There is a hubot Jenkins Steps plugin that would seem a good idea for that doing Jenkins based promotions. This bot is intended to run with read-only access and tell you the appropriate commands to run if it thinks you should be patching your container images to match the lastest up stream LTS releases. 
-
 ### Features
 
-- [x]  `oc status`
+- [x] `oc status`
 - [x] `oc version`
 - [x] check local s2i image tags against upstream latest tag
 - [x] promote images between projects using `oc tag`
