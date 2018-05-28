@@ -41,16 +41,13 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
 
-      robot.respond /promote (.*)/i, (res) ->
-        image = res.match[1]
-        if image?
-          @exec = require('child_process').exec
-          command = "./bin/promote.sh "+image
-
-          @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
-            if error
-                res.send "@#{res.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
-            else
-                res.send "@#{res.message.user.name} " +"```" + stdout + "```"
-        else
-          res.reply "promote what?"
+      robot.respond /promote (.*)/i, (msg) ->
+       image = msg.match[1]
+       @exec = require('child_process').exec
+       command = "./bin/promote.sh "+image
+       
+       @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
+         if error
+            msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
+         else
+            msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
