@@ -10,8 +10,8 @@ Having the bot perform arbitrary writes seems a bit high risk. There is a hubot 
 
 - [x]  `oc status`
 - [x] `oc version`
+- [x] check local s2i image tags against upstream latest tag
 - [ ] cron check that `oc version` has matching client and server versions
-- [ ] check local s2i image tags against upstream latest tag
 - [ ] poll `oc get events`, deduplicate and tell the room
 
 ### Setup On OpenShift Online
