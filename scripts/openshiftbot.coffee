@@ -49,8 +49,8 @@ module.exports = (robot) ->
 
           @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
             if error
-                msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
+                res.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
             else
-                msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
+                res.send "@#{msg.message.user.name} " +"```" + stdout + "```"
         else
           res.reply "promote what?"
