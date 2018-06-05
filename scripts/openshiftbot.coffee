@@ -1,9 +1,10 @@
 
 module.exports = (robot) ->
 
-     robot.respond /oc status/i, (msg) ->
+     robot.respond /oc status -n (.*)/i, (msg) ->
+       project = msg.match[1]
        @exec = require('child_process').exec
-       command = "./oc status"
+       command = "./oc status -n "+project
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
