@@ -32,9 +32,10 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " + "Here you go! The oc get events..." +"```" + stdout + "```"
 
-     robot.respond /do we have the latest nodejs-8-rhel7 tags\?/i, (msg) ->
+     robot.respond /do we have the latest (.*) tags\?/i, (msg) ->
+       image = msg.match[1]
        @exec = require('child_process').exec
-       command = "./bin/nodejs-8-rhel7.sh"
+       command = "./bin/"+image+".sh"
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error

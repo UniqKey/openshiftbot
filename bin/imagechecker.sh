@@ -25,7 +25,7 @@ awk 'NR==FNR{a[$1];next} {delete a[$1] } END{for (key in a) print key }' /tmp/up
 cat /tmp/missing.txt | \
 while read TAG; do \
     echo "# Run the following to import the missing image $TAG:"
-    echo "oc -n uniqkey-api-staging import-image $IMAGE_STREAM:$TAG --from='$REDHAT_REGISTRY_URL/:$TAG' --confirm"
+    echo "oc -n uniqkey-api-staging import-image $IMAGE_STREAM:$TAG --from='$REDHAT_REGISTRY_URL:$TAG' --confirm"
     echo "# Run the following set the imported image as the latest to trigger a build:"
     echo "oc tag uniqkey-api-staging/$IMAGE_STREAM:$TAG uniqkey-api-staging/$IMAGE_STREAM:latest"
 done > /tmp/import.txt
