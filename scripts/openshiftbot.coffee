@@ -32,7 +32,7 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " + "Here you go! The oc get events..." +"```" + stdout + "```"
 
-     robot.respond /do we have the latest (.*) tags\?/i, (msg) ->
+     robot.respond /do we have the latest (.*) (tags|images)\?/i, (msg) ->
        image = msg.match[1]
        @exec = require('child_process').exec
        command = "./bin/"+image+".sh"
