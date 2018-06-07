@@ -12,7 +12,7 @@ wget -q  -O -  $REDHAT_REGISTRY_URL/tags/list | ./jq -r '."tags"[]' | while read
 #cat /tmp/upstream.txt
 
 # Step2: What do we actually have locally? 
-./oc export is -o json -n uniqkey-api-staging  | ./jq -r '."items"[] | select(.metadata.name=="$IMAGE_STREAM") | .spec.tags[].name'  | grep -v latest > /tmp/local.txt
+./oc export is -o json -n uniqkey-api-staging  | ./jq -r ".\x22items\x22[] | select(.metadata.name==\x22$IMAGE_STREAM\x22) | .spec.tags[].name"  | grep -v latest > /tmp/local.txt
 #echo "local tags are: "
 #cat /tmp/local.txt
 
