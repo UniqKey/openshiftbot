@@ -7,7 +7,7 @@ IMAGE_STREAM="$2"
 #echo IMAGE_STREAM=$IMAGE_STREAM
 
 # Step1: What are the tags that match the upstream “latest” version?
-wget -q  -O -  $REDHAT_REGISTRY_URL/tags/list | ./jq -r '."tags"[]' | while read TAG ; do echo $TAG ; wget --header="Accept: application/vnd.docker.distribution.manifest.v2+json" -q  -O - $REDHAT_REGISTRY_URL/manifests/$TAG | ./jq '.config.digest // "null"' ; done | paste -d, - - | awk 'BEGIN{FS=OFS=","}{map[$1] = $2;rmap[$2][$1] = $1;}END{for (key in rmap[map["latest"]]) {print key}}' | grep -v latest > /tmp/upstream.txt
+wget -q  -O - https://$REDHAT_REGISTRY_URL/tags/list | ./jq -r '."tags"[]' | while read TAG ; do echo $TAG ; wget --header="Accept: application/vnd.docker.distribution.manifest.v2+json" -q  -O - https://$REDHAT_REGISTRY_URL/manifests/$TAG | ./jq '.config.digest // "null"' ; done | paste -d, - - | awk 'BEGIN{FS=OFS=","}{map[$1] = $2;rmap[$2][$1] = $1;}END{for (key in rmap[map["latest"]]) {print key}}' | grep -v latest > /tmp/upstream.txt
 #echo "upstream tags are: "
 #cat /tmp/upstream.txt
 
