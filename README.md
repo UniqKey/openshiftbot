@@ -4,6 +4,12 @@ Openshiftbot is a hubot focusing on chatops culture where commands such as `prom
 
 Currently the focus is getting something immediately useful for our deployments. You can always fork and customised to your purposes. We would consider refactoring it to be a plug-in if there is interest. 
 
+# Approach
+
+Slack has a flexible `/remind #channel some message text every Monday` feature. This allows you to set up `robot.hear /some message (.*)\?/i` matchers that will trigger on a schedule and can scan for upstream container image patches or poll openshift to report on activity. 
+
+The approach taking with pattern match on message to extract arguments to run shell scripts. In order to prevent problems it is recommended that your scripts are either read-only, idempotent or use the Jenkins Hubot plugin to run a well defined workflow. Generally forking a shell script would be too slow for a high performance NodeJS app and the schell scripts can run commands that are themselves slow. In practice chat messaging is an asynchronous interaction and NodeJS is just queuing work to run and a hubot per scrum team is likely to be responsive enough for real world CI/CD. 
+
 ### Features
 
 - [x] `oc status`
@@ -13,6 +19,8 @@ Currently the focus is getting something immediately useful for our deployments.
 - [ ] report activity such as builds and promotions in a way that isn't spammy
 
 ### Setup On OpenShift Online
+
+*WARNING* This next part has to change due to https://github.com/UniqKey/openshiftbot/issues/4 but it should become simplified. 
 
 This hubot runs the oc command. That reads the kubeconfig file created by `oc login` to get the oAuth token. The openshift template `openshift-template.json` mounts a secret called `kubconfig` into the running pod. To create that secret you need to perform an `oc login` and load the generated kubconfig file into an openshift secret using the following steps. You probably want the bot to have read-only access to your projects:
 
