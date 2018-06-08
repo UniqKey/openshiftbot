@@ -1,4 +1,7 @@
-
+###
+robot.respond - requires a direct message to the robot. It is better to use this for commands. 
+robot.hear - works when anyone, including a slack reminder, says something in the channel with the bot. This means that a repeating slack reminder into a channel can trigger hubot. To avoid those running accidents the actions should be readonly and the text matched should be quite specific.
+###
 module.exports = (robot) ->
 
      robot.respond /oc status -n (.*)/i, (msg) ->
@@ -32,7 +35,7 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " + "Here you go! The oc get events..." +"```" + stdout + "```"
 
-     robot.respond /do we have the latest (.*) (tags|images)\?/i, (msg) ->
+     robot.hear /do we have the latest (.*) (tags|images)\?/i, (msg) ->
        image = msg.match[1]
        @exec = require('child_process').exec
        command = "./bin/"+image+".sh"
