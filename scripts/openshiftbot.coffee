@@ -7,7 +7,7 @@ module.exports = (robot) ->
      robot.respond /oc status -n (.*)/i, (msg) ->
        project = msg.match[1]
        @exec = require('child_process').exec
-       command = "./oc status -n "+project
+       command = "bin/oc.sh status -n "+project
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
@@ -17,7 +17,7 @@ module.exports = (robot) ->
 
      robot.respond /oc version/i, (msg) ->
        @exec = require('child_process').exec
-       command = "./oc version"
+       command = "bin/oc.sh version"
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
@@ -25,9 +25,9 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " + "Here you go! The oc version..." +"```" + stdout + "```"
 
-     robot.respond /oc get events/i, (msg) ->
+     robot.respond /oc get events (.*)/i, (msg) ->
        @exec = require('child_process').exec
-       command = "./oc get events"
+       command = "bin/oc.sh get events "+msg.match[1] 
 
        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
          if error
