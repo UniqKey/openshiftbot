@@ -38,13 +38,6 @@
             "targetPort": 8080
           }
         ],
-        "envFrom": [
-          {
-            "secretRef": {
-              "name": "${NAME}"
-            }
-          }
-        ],
         "selector": {
           "name": "${NAME}"
         }
@@ -184,11 +177,12 @@
                         "memory": "${MEMORY_LIMIT}"
                     }
                 },
-                "env": [
-                    {
-                        "name": "KUBECONFIG",
-                        "value": "/opt/app-root/src/secret/kubeconfig"
+               "envFrom": [
+                  {
+                    "secretRef": {
+                      "name": "${NAME}"
                     }
+                  }
                 ]
               }
             ]
