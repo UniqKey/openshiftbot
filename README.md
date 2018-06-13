@@ -20,20 +20,21 @@ The approach taking with pattern match on message to extract arguments to run sh
 
 ### Setup On OpenShift Online
 
-*WARNING* This next part has to change due to https://github.com/UniqKey/openshiftbot/issues/4 but it should become simplified. 
+This hubot runs the oc command in bash. You probably want the bot to have read-only access to your projects:
 
-This hubot runs the oc command. That reads the kubeconfig file created by `oc login` to get the oAuth token. The openshift template `openshift-template.json` mounts a secret called `kubconfig` into the running pod. To create that secret you need to perform an `oc login` and load the generated kubconfig file into an openshift secret using the following steps. You probably want the bot to have read-only access to your projects:
-
- 1. Create a new openshift.com free account and add it as a collaborator to your main account and grant it only "view" access to your project 
- 1. Backup your `~/.kube/config` and generate a new one by logging into openshift as the new read-only collaborator. 
- 1. Copy the newly generated `~/.kube/config` as `kubconfig` in the local directory. That file name is in the .gitignore so that you won't accidently commit it. (We use `git secret` to encrypt it). Restore your original `~/.kube/config` so that you can create objects.
+ 1. Create a new openshift.com free account and add it as a collaborator to your main account and grant it only "view" access to the projects that run your actual code. 
+ 1. `cp .env.example .env` then edit `.evn` with your real settings. That filename is in the `.gitignore` so that you wont accidently commit it. We use `git-secret.io` to gpg encrypt that file into a `.env.secret`. If you fork this repo delete that file and also the `.gitsecret` folder as those are our settings that you wont be using. 
  1. Import the latest Node.js 8 LTS builder image `oc import-image nodejs-8-rhel7:latest --from="registry.access.redhat.com/rhscl/nodejs-8-rhel7:latest" --confirm`
- 1. Create the secret from your kubeconfig file with `NAME=kubeconfig ./create-file-secret.sh kubeconfig`
- 1. Create the hubot with `NAME=hubot ./create-openshift.sh`
+ 1. Create a secret from your settings with `NAME=openshiftbot ./create-env-secret.sh .env`
+ 1. Create the hubot with `NAME=openshiftbot ./create-openshift.sh`
  
-If you promote application containers between projects using `oc tag` and want to use the `./bin/promote.sh` to do this from commands in slack such as `@Openshiftbot promote webapp` then you need to give the hubot account the ability to create and update tags: 
+If you promote application containers between projects using `oc tag` and want to use the `./bin/promote.sh` to do this from commands in slack such as `@Openshiftbot promote webapp` then you need to give the hubot account the ability to create and update tags to the projects named as `PROMOTE_PROJECT_FROM` and `PROMOTE_PROJECT_TO` in your `.env` file: 
 
-`oc policy add-role-to-user registry-editor hubotuser`
+```oc project $PROMOTE_PROJECT_FROM
+oc policy add-role-to-user registry-editor your-hubot-username
+oc project $PROMOTE_PROJECT_TO
+oc policy add-role-to-user registry-editor your-hubot-username
+```
 
 ### Running openshiftbot Locally
 

@@ -38,6 +38,13 @@
             "targetPort": 8080
           }
         ],
+        "envFrom": [
+          {
+            "secretRef": {
+              "name": "${NAME}"
+            }
+          }
+        ],
         "selector": {
           "name": "${NAME}"
         }
@@ -162,16 +169,7 @@
               "name": "${NAME}"
             }
           },
-          "spec": {
-            "volumes": [
-                {
-                    "name": "kubeconfig-secret-volume",
-                    "secret": {
-                        "secretName": "kubeconfig",
-                        "defaultMode": 420
-                    }
-                }
-            ],              
+          "spec": {            
             "containers": [
               {
                 "name": "openshiftbot",
@@ -190,12 +188,6 @@
                     {
                         "name": "KUBECONFIG",
                         "value": "/opt/app-root/src/secret/kubeconfig"
-                    }
-                ],
-                "volumeMounts": [
-                    {
-                        "name": "kubeconfig-secret-volume",
-                        "mountPath": "/opt/app-root/src/secret"
                     }
                 ]
               }
