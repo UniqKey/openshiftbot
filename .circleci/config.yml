@@ -3,20 +3,26 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4-node
-      - image: circleci/postgres:9.4.12-alpine
+      - image: circleci/node:8
     working_directory: ~/circleci-demo-workflows
-    steps:
       - checkout
-      # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
 
-      # Database setup
-      - run: bundle exec rake db:create db:schema:load
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-      - run:
-          name: Run tests
-          command: rake
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+        
+      # run tests!
+      - run: yarn test
 
   deploy:
     machine:
