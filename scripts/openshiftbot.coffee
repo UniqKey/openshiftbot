@@ -57,14 +57,16 @@ module.exports = (robot) ->
          else
             msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
 
-      robot.hear /list tags (.*) ([^ ]*)/i, (msg) ->
+      robot.hear /list tags (.+)(?: ([^ ]+))?/i, (msg) ->
         app = msg.match[1]
         project = msg.match[2]
         @exec = require('child_process').exec
-        command = "./bin/list-tags.sh "+app+" "+project
+        command = "./bin/list-tags.sh "+app
+        command = command+" "+project if project?
 
         @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
           if error
               msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
           else
               msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
+
