@@ -26,10 +26,6 @@ jobs:
     docker:
       - image: simonmassey/gitops-openshift:latest
     working_directory: ~/circleci-demo-workflows
-    environment:
-      OPENSHIFT_SERVER: "${OPENSHIFT_SERVER}"
-      OPENSHIFT_USER: "${OPENSHIFT_USER}"
-      OPENSHIFT_PASSWORD: "${OPENSHIFT_PASSWORD}"
     steps:
       - run:
           command: |
