@@ -30,7 +30,6 @@ jobs:
       OPENSHIFT_SERVER: "${OPENSHIFT_SERVER}"
       OPENSHIFT_USER: "${OPENSHIFT_USER}"
       OPENSHIFT_PASSWORD: "${OPENSHIFT_PASSWORD}"
-      CIRCLE_TAG: "${CIRCLE_TAG}"
     steps:
       - run:
           command: |
