@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     docker:
-      - image: simonmassey/gitops-openshift:20180626_1821
+      - image: simonmassey/gitops-openshift:20180626_1914
     working_directory: ~/circleci-demo-workflows
     environment:
       BUILD_NAMESPACE: "hubot"
@@ -32,7 +32,7 @@ jobs:
     steps:
       - run:
           command: |
-            "export TAG=${CIRCLE_TAG} ; trigger-oc-build.sh"
+            "trigger-oc-build.sh"
 
 workflows:
   version: 2
