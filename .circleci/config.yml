@@ -26,16 +26,19 @@ jobs:
       - run: yarn test
 
   deploy:
-    machine:
-        enabled: true
+    docker:
+      - image: simonmassey/gitops-openshift:latest
     working_directory: ~/circleci-demo-workflows
     environment:
-      HEROKU_APP: "sleepy-refuge-55486"
+      OPENSHIFT_SERVER: "${OPENSHIFT_SERVER}"
+      OPENSHIFT_USER: "${OPENSHIFT_USER}"
+      OPENSHIFT_PASSWORD: "${OPENSHIFT_PASSWORD}"
+      CIRCLE_TAG: "${CIRCLE_TAG}"
     steps:
       - checkout
       - run:
           command: |
-            env
+            "echo $${CIRCLE_TAG} ${OPENSHIFT_SERVER} ${OPENSHIFT_USER} "
 
 workflows:
   version: 2
