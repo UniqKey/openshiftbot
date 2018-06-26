@@ -32,10 +32,9 @@ jobs:
       OPENSHIFT_PASSWORD: "${OPENSHIFT_PASSWORD}"
       CIRCLE_TAG: "${CIRCLE_TAG}"
     steps:
-      - checkout
       - run:
           command: |
-            "echo $${CIRCLE_TAG} ${OPENSHIFT_SERVER} ${OPENSHIFT_USER} "
+            "echo $${CIRCLE_TAG} ${OPENSHIFT_SERVER} ${OPENSHIFT_USER} && ls -al  ~/circleci-demo-workflows"
 
 workflows:
   version: 2
