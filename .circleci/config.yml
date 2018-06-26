@@ -34,7 +34,7 @@ jobs:
     steps:
       - run:
           command: |
-            "echo $${CIRCLE_TAG} ${OPENSHIFT_SERVER} ${OPENSHIFT_USER} && ls -al  ~/circleci-demo-workflows"
+            "env"
 
 workflows:
   version: 2
