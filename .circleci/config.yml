@@ -32,7 +32,7 @@ jobs:
     steps:
       - run:
           command: |
-            "ls -al /usr/local/bin && TAG=${CIRCLE_TAG} /usr/local/bin/trigger-oc-build.sh"
+            "trigger-oc-build.sh"
 
 workflows:
   version: 2
