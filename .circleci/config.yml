@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     docker:
-      - image: ssimonmassey/gitops-openshift:20180626_1920
+      - image: simonmassey/gitops-openshift:20180626_1920
     working_directory: ~/circleci-demo-workflows
     environment:
       BUILD_NAMESPACE: "hubot"
