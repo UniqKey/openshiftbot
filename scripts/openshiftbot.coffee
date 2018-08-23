@@ -81,3 +81,15 @@ module.exports = (robot) ->
               msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
           else
               msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
+
+      robot.hear /deploy configuration ([^ ]+) ([^ ]+)/i, (msg) ->
+        repo = msg.match[1]
+        tag = msg.match[2]
+        @exec = require('child_process').exec
+        command = "./bin/deploy-config.sh "+repo+" "+tag
+
+        @exec command, { shell: '/bin/bash' } , (error, stdout, stderr) ->
+          if error
+              msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
+          else
+              msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
