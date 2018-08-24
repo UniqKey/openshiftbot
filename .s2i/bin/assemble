@@ -10,6 +10,8 @@ if [ $rc -eq 0 ]; then
     wget -q -O - https://mirror.openshift.com/pub/openshift-v3/clients/3.9.14/linux/oc.tar.gz | tar zx; 
     echo 'wget jq'
     wget -q -O jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o jq; chmod +x jq
+    echo 'wget helm'
+    curl -s https://storage.googleapis.com/kubernetes-helm/helm-v2.9.0-linux-amd64.tar.gz | tar xz && mv $(find . -name helm) $HOME
 else
     echo "After failed assembling"
 fi
