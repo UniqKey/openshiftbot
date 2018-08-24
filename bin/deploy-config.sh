@@ -30,7 +30,7 @@ if [ ! -f github_access_token ]; then
 
     if [ ! -f openshift.secrets.key ]; then 
         echo "Decrypting openshift.secrets.key.gpg..."
-        echo "$OPENSHIFT_PASSWORD" | gpg --decrypt --symmetric --batch --yes --passphrase-fd 0 openshift.secrets.key.gpg
+        echo "$OPENSHIFT_PASSWORD" | gpg --decrypt --batch --yes --passphrase-fd 0 openshift.secrets.key.gpg 2>/dev/null
     fi
 
     if [ ! -f openshift.secrets.key ]; then 

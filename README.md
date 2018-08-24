@@ -92,7 +92,7 @@ Where `<adapter>` is the name of your adapter without the `hubot-` prefix.
 
  1. `openshift.secrets.pub.key` is the public keys to encrypt secrets. 
  2. `openshift.secrets.key.secret` is the git-secret encoded version private key used to decrypt secrets.
- 3. `openshift.secrets.key.gpg` is the private key symmetrically encrypted private key using `OPENSHIFT_SECRET`. 
+ 3. `openshift.secrets.key.gpg` is the private key symmetrically encrypted private key using `OPENSHIFT_PASSWORD`. 
 
-The net effect is that you have to create a deployment with an env var `OPENSHIFT_SECRET` then gpg decrypt `openshift.secrets.key.gpg`. 
+The net effect is that you have to create a deployment with an env var `OPENSHIFT_PASSWORD` then gpg decrypt `openshift.secrets.key.gpg`. 
 
