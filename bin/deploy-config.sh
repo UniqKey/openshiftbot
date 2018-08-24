@@ -2,6 +2,8 @@
 
 shopt -s expand_aliases
 
+export PATH=$HOME:$PATH
+
 alias echoerr='>&2 echo'
 
 oc() { 
@@ -97,6 +99,6 @@ pushd "$SECRET_FOLDER" || exit 2
 # extract the files
 tar zxf "$FILE"
 
-TAG=$TAG ./apply_release.sh
+./helm-apply-config.sh
 
 popd || return
