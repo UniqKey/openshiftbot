@@ -92,4 +92,4 @@ module.exports = (robot) ->
           if error
               msg.send "@#{msg.message.user.name} " + "Ops! Not able to run "+ command +" ```" + stderr + "```"
           else
-              msg.send "@#{msg.message.user.name} " +"```" + stdout + "```"
+              msg.send "@#{msg.message.user.name} " +"```" + stdout + "\n" + stderr + "```"
