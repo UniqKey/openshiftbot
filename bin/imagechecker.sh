@@ -18,8 +18,7 @@ IMAGE_STREAM="$3"
 # Step1: What do we actually have locally? 
 oc export is -o json -n uniqkey-api-staging | ./jq -r '."items"[] | select(.metadata.name=="'$IMAGE_STREAM'") | .spec.tags[].name'  | grep -v latest > /tmp/local.txt
 
-# debug with no exit https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-$(echo "local tags are: " && cat /tmp/local.txt) || true
+( echo "local tags are: " && cat /tmp/local.txt  ) || true
 
 if [[ ! -s /tmp/local.txt ]]; then
      (>&2 echo "ERROR could not get the local tags using "oc export is -o json -n uniqkey-api-staging"")
@@ -29,7 +28,7 @@ fi
 # Step2: What are the tags that match the upstream “latest” version?
 wget -q  -O - $REDHAT_REGISTRY_API/tags/list | ./jq -r '."tags"[]' | while read TAG ; do echo $TAG ; wget --header="Accept: application/vnd.docker.distribution.manifest.v2+json" -q  -O - $REDHAT_REGISTRY_API/manifests/$TAG | ./jq '.config.digest // "null"' ; done | paste -d, - - | awk 'BEGIN{FS=OFS=","}{map[$1] = $2;rmap[$2][$1] = $1;}END{for (key in rmap[map["latest"]]) {print key}}' | grep -v latest > /tmp/upstream.txt
 
-$(echo "upstream tags are: " && cat /tmp/upstream.txt) || true
+(echo "upstream tags are: " && cat /tmp/upstream.txt) || true
 
 
 # Step3: What is upstream that isn’t local?
