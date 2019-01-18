@@ -1,4 +1,5 @@
 #!/bin/bash
+set -Eeuo pipefail
 
 oc() { 
     bin/oc_wrapper.sh $@
